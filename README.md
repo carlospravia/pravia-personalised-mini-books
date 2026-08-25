@@ -1,96 +1,152 @@
 # Pravia Personalised Mini Books
 
-Página móvil estática: al escanear un QR, cada compañero ve un mensaje de bienvenida y una imagen personalizados según un código fijo.
+Sitio web **móvil y estático** para el proyecto escolar de **Gabriel Pravia** (Term II English Project, 2º grado).
 
-Este change (**Phase 0 — foundation**) deja el layout del repo y la documentación listos. Aún no hay página de producto ni deploy.
+Cada compañero recibe un **Mini-Book** con un **código QR** en el reverso. Al escanearlo abre una página personalizada en inglés (nivel básico / “cute”) con **su nombre**, un **mensaje corto** y la **imagen de su amigo/regalo** — sin cuentas, sin formularios y sin botones.
+
+**Live:** [https://personalised-mini-books.web.app](https://personalised-mini-books.web.app)
+
+Crédito en la app: *A Mini-Book gift by Gabriel Pravia · Term II English Project*
+
+---
+
+## Propósito
+
+| Qué | Por qué |
+|-----|---------|
+| Regalo digital por compañero | Celebrar el Mini-Book de forma personal y divertida |
+| Inglés sencillo | Vocabulario apto para niños de ~8 años (ESL, Costa Rica) |
+| QR impresos | Entregar el “premio” al escanear el código del libro |
+| Sin backend | Simple de hospedar y mantener (Firebase Hosting + archivos en el repo) |
+
+---
+
+## Cómo funciona
+
+1. El visitante abre la URL **sin** `code` → página **default**: invita a escanear el QR del Mini-Book.
+2. Con `?code=XXXXXXXX` **válido** → título personalizado (nombre en azul), mensaje en inglés fácil (nombre en **negrita**), imagen del regalo, footer “Hope you enjoy it!”.
+3. Con código **inválido** → misma página default (no se listan códigos ni nombres).
+
+Ejemplos:
+
+- Default: https://personalised-mini-books.web.app/
+- Mateo: https://personalised-mini-books.web.app/?code=7XDVYZGL
+
+Códigos y mensajes viven en [`config/codes.json`](config/codes.json) (fuente de verdad) y se publican en [`public/data/codes.json`](public/data/codes.json) para el navegador.
+
+---
+
+## Qué incluye este repo
+
+- Página estática mobile-first (`public/`), diseño lúdico (Quicksand / Nunito, marco “toy”)
+- **9 compañeros** mapeados a códigos alfanuméricos fijos
+- Imágenes en `public/images/` (copia de `docs/assets/`)
+- Hoja imprimible **US Letter** con los 9 QRs + nombre (sin spoilear el personaje): [`print/qr-sheet.html`](print/qr-sheet.html)
+- Deploy en **Firebase Hosting** (`personalised-mini-books`)
+- Gobernanza **SIFTIA / OpenSpec** (`docs/`, `openspec/`)
+
+### Compañeros (referencia interna)
+
+| Compañero | Código |
+|-----------|--------|
+| Mateo | `7XDVYZGL` |
+| Hector | `72PYXPGB` |
+| Emma | `W4AXKM89` |
+| Celeste | `LZ47KKJC` |
+| Cata | `W2RQGPRA` |
+| Tessa | `UKU9343P` |
+| Felipe | `CDTZABXB` |
+| Barrantes | `LFZSHCFK` |
+| Samantha | `KPEGW3FA` |
+
+---
 
 ## Idiomas
 
 | Ámbito | Idioma |
 |--------|--------|
-| UI de producto (mensajes fijos para niños) | English |
-| Documentación del repo (este README, `docs/`) | Español |
+| UI del producto (niños) | English (fácil / cute) |
+| Documentación del repo | Español |
 | Identifiers de código | English |
 
-## Árbol canónico
+---
+
+## Estructura
 
 ```
-README.md
-.gitignore
-AGENTS.md
-public/                 # Futura raíz de Firebase Hosting (placeholder)
-  .gitkeep
-config/
-  codes.example.json    # Stub código → mensaje + imagen (sin códigos reales)
-docs/
-  STANDARD.md           # Convenciones HTML/CSS/JS
-  PROJECT-INTRO.md
-  ROADMAP.md
-  REPOSITORY-RULES.md
-  design/               # Design system / template (SoT)
-    DESIGN.md
-    code.html
-    screen.png
-  assets/               # 9 PNG fuente (SoT) — NO Hosting aún
-    ajolote-mateo.png
-    caballero-hector.png
-    caballo-emma.png
-    capibara-celeste.png
-    chiwuawua-cata.png
-    puccini-tessa.png
-    pug-felipe.png
-    squishi-barrantes.png
-    teddy-samantha.png
-openspec/               # Workflow SIFTIA / OpenSpec
+public/                 # Raíz de Firebase Hosting
+  index.html            # Página única
+  js/welcome.js         # Default vs personalizado (?code=)
+  data/codes.json       # Mapa publicado (code → message + image)
+  images/               # 9 PNG del regalo
+config/codes.json       # SoT de códigos / mensajes
+print/
+  qr-sheet.html         # Imprimir en carta (3×3)
+  qrs/                  # PNG de cada QR
+docs/                   # Charter, roadmap, design, assets fuente
+openspec/               # Changes SIFTIA / OpenSpec
+scripts/generate-codes-and-qrs.mjs
+firebase.json
 ```
 
-### Design vs Hosting
+---
 
-- **`docs/design/`** — design system y template de referencia
-- **`docs/assets/`** — fuentes de imagen (`{character}-{classmate}.png`); no se copian a `public/` en Phase 0
-- **`public/`** — raíz futura de Hosting; la página y las imágenes públicas llegan en changes posteriores
-- **`config/codes.example.json`** — schema stub; códigos/mensajes reales en un change posterior
-
-## Servir localmente (placeholder)
-
-Cuando exista contenido en `public/`:
+## Uso local
 
 ```bash
-cd public
-python3 -m http.server 8080
-```
-
-Abrir `http://localhost:8080`. Phase 0 solo reserva el directorio; no requiere `firebase.json` ni deploy.
-
-## Documentación útil
-
-- [docs/STANDARD.md](docs/STANDARD.md) — convenciones del sitio
-- [docs/PROJECT-INTRO.md](docs/PROJECT-INTRO.md) — charter
-- [docs/ROADMAP.md](docs/ROADMAP.md) — fases
-- [docs/REPOSITORY-RULES.md](docs/REPOSITORY-RULES.md) — contrato operativo
-- [docs/design/DESIGN.md](docs/design/DESIGN.md) — design system
-
-## Firebase
-
-Proyecto Hosting: **`personalised-mini-books`** (ver [`.firebaserc`](.firebaserc) y [docs/guides/FIREBASE.md](docs/guides/FIREBASE.md)).
-
-URL pública esperada: `https://personalised-mini-books.web.app`  
-Personalización (próximo change): `https://personalised-mini-books.web.app/?code=XXXXXXXX`
-
-### Servir localmente
-
-```bash
+npm install
 npm run serve:public
 # → http://localhost:8080
 ```
 
-### Códigos QR (impresión)
+Probar:
 
-- Config SoT: [`config/codes.json`](config/codes.json)
-- PNGs + hoja carta: [`print/qr-sheet.html`](print/qr-sheet.html) (abrir en el navegador → Print)
-- Regenerar (conserva códigos existentes): `npm run generate:codes-qrs`
-- Forzar códigos nuevos: `npm run generate:codes-qrs -- --force`
+- http://localhost:8080/
+- http://localhost:8080/?code=7XDVYZGL
+- http://localhost:8080/?code=bad
 
-## Gobernanza
+---
 
-Cambios de producto vía [Siftia OpenSpec](https://github.com/ExtendoDataIng/siftia-openspec-workflow). Change activo: ver `openspec/ACTIVE_CHANGE`.
+## Imprimir QRs (hoja carta)
+
+1. Abrir [`print/qr-sheet.html`](print/qr-sheet.html) en el navegador  
+2. Imprimir → papel **Letter / Carta**, escala **100%**  
+3. Cada celda muestra **nombre** + QR + código (sin el personaje, para no hacer spoiler)
+
+Regenerar QRs (conserva códigos y mensajes):
+
+```bash
+npm run generate:codes-qrs
+```
+
+Forzar códigos nuevos (¡rompe QRs ya impresos!):
+
+```bash
+npm run generate:codes-qrs -- --force
+```
+
+---
+
+## Deploy (Firebase Hosting)
+
+```bash
+firebase use personalised-mini-books
+firebase deploy --only hosting
+```
+
+Más detalle: [docs/guides/FIREBASE.md](docs/guides/FIREBASE.md)
+
+---
+
+## Documentación
+
+| Doc | Contenido |
+|-----|-----------|
+| [docs/PROJECT-INTRO.md](docs/PROJECT-INTRO.md) | Charter / meta-requerimientos |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Fases del proyecto |
+| [docs/REPOSITORY-RULES.md](docs/REPOSITORY-RULES.md) | Contrato operativo del repo |
+| [docs/STANDARD.md](docs/STANDARD.md) | Convenciones HTML/CSS/JS |
+| [docs/design/DESIGN.md](docs/design/DESIGN.md) | Design system |
+| [AGENTS.md](AGENTS.md) | Bootstrap para agentes AI |
+
+Workflow de cambios: [Siftia OpenSpec](https://github.com/ExtendoDataIng/siftia-openspec-workflow). Change activo: `openspec/ACTIVE_CHANGE`.
