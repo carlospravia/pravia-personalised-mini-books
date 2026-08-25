@@ -1,0 +1,3 @@
+# Active OpenSpec change pointer
+# Set to the change folder name under openspec/changes/<name>/ when a change is in flight.
+# Keep comments only (no change name) when no change is active.

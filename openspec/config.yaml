@@ -1,0 +1,54 @@
+# openspec/config.yaml — SDD bootstrap for pravia-personalised-mini-books
+schema: spec-driven
+
+context: |
+  Project: pravia-personalised-mini-books (greenfield; no app code yet).
+  Planned stack: static HTML/CSS/JS on Firebase Hosting.
+  Personalization: 9 finite codes → message+image via versioned JSON/YAML in repo.
+  Docs language: Spanish; code/commits: English.
+  Detected: empty repo (git + .atl only); no package.json/firebase.json/tests yet.
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  detected: "2026-08-25"
+  runner:
+    command: ""
+    framework: none
+  layers:
+    unit: { available: false, tool: "" }
+    integration: { available: false, tool: "" }
+    e2e: { available: false, tool: "" }
+  coverage:
+    available: false
+    command: ""
+  quality:
+    linter: { available: false, command: "" }
+    type_checker: { available: false, command: "" }
+    formatter: { available: false, command: "" }
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Keep scope finite (9 codes); avoid open-ended personalization
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Specs/docs narrative may be Spanish; identifiers stay English
+  design:
+    - Prefer static hosting + config-driven mapping over backend services
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns when they exist
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

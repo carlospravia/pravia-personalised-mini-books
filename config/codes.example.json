@@ -1,0 +1,68 @@
+{
+  "_comment": "Stub only. Real codes and English welcome messages land in a later change. image will be a relative path under public/ after assets are copied from docs/assets/.",
+  "entries": [
+    {
+      "code": "TODO-01",
+      "classmateName": "Mateo",
+      "character": "ajolote",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-02",
+      "classmateName": "Hector",
+      "character": "caballero",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-03",
+      "classmateName": "Emma",
+      "character": "caballo",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-04",
+      "classmateName": "Celeste",
+      "character": "capibara",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-05",
+      "classmateName": "Cata",
+      "character": "chiwuawua",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-06",
+      "classmateName": "Tessa",
+      "character": "puccini",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-07",
+      "classmateName": "Felipe",
+      "character": "pug",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-08",
+      "classmateName": "Barrantes",
+      "character": "squishi",
+      "image": "",
+      "message": ""
+    },
+    {
+      "code": "TODO-09",
+      "classmateName": "Samantha",
+      "character": "teddy",
+      "image": "",
+      "message": ""
+    }
+  ]
+}

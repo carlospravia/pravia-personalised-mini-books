@@ -1,0 +1,127 @@
+# Baseline AI-agent execution policy — Pravia Personalised Mini Books
+# Profile: standard (static personal site; github-flow)
+
+profile: standard
+environment: dev
+relaxation_requires_explicit_approval: true
+comparison:
+  order: [deny, ask, allow]
+  omitted_capabilities_inherit: true
+audit:
+  required_for_relaxations: true
+  required_fields:
+    - approved_by
+    - approved_at
+    - rationale
+    - scope
+    - capabilities
+
+capabilities:
+  local_read: allow
+  local_write: ask
+  local_destructive: deny
+  tests: ask
+  install_dependencies: ask
+  network_access: ask
+  external_browsing: ask
+  api_calls: ask
+  cross_boundary_data_transfer: ask
+  remote_commands: deny
+  cloud_cli: ask
+  database_access: deny
+  third_party_systems: ask
+  secret_access: deny
+  production_access: deny
+
+# Always require approval (bootstrap defaults): destructive, secrets, production
+# local_destructive / secret_access / production_access set above accordingly
+
+agent_git:
+  create_branches: allow
+  push_feature_branches: ask
+  open_pull_requests: ask
+  force_push_protected: deny
+  skip_hooks: deny
+  push_to_main: deny
+
+git:
+  branching_model: github-flow
+  merge_policy: squash
+  default_branch: main
+  protected_branches:
+    - main
+  branch_naming_templates:
+    feature: "feature/{change-name}"
+    fix: "fix/{change-name}"
+    chore: "chore/{change-name}"
+    change: "change/{change-name}"
+  require_pr: true
+  require_ci_pass: true
+  commit_convention: conventional-commits
+  use_worktrees: false
+
+profiles:
+  read-only:
+    local_read: allow
+    local_write: deny
+    local_destructive: deny
+    tests: ask
+    install_dependencies: deny
+    network_access: deny
+    external_browsing: deny
+    api_calls: deny
+    cross_boundary_data_transfer: deny
+    remote_commands: deny
+    cloud_cli: deny
+    database_access: deny
+    third_party_systems: deny
+    secret_access: deny
+    production_access: deny
+  standard:
+    local_read: allow
+    local_write: ask
+    local_destructive: deny
+    tests: ask
+    install_dependencies: ask
+    network_access: ask
+    external_browsing: ask
+    api_calls: ask
+    cross_boundary_data_transfer: ask
+    remote_commands: deny
+    cloud_cli: ask
+    database_access: deny
+    third_party_systems: ask
+    secret_access: deny
+    production_access: deny
+  restricted:
+    local_read: allow
+    local_write: ask
+    local_destructive: deny
+    tests: ask
+    install_dependencies: ask
+    network_access: ask
+    external_browsing: ask
+    api_calls: ask
+    cross_boundary_data_transfer: ask
+    remote_commands: ask
+    cloud_cli: ask
+    database_access: ask
+    third_party_systems: ask
+    secret_access: ask
+    production_access: deny
+  locked-production:
+    local_read: allow
+    local_write: deny
+    local_destructive: deny
+    tests: deny
+    install_dependencies: deny
+    network_access: deny
+    external_browsing: deny
+    api_calls: deny
+    cross_boundary_data_transfer: deny
+    remote_commands: deny
+    cloud_cli: deny
+    database_access: deny
+    third_party_systems: deny
+    secret_access: deny
+    production_access: deny
