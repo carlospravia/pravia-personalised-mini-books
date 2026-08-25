@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome Gift - Little Sparkles</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700;900&amp;family=Nunito+Sans:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb3ae",
+                        "surface": "#ebffe6",
+                        "on-secondary-fixed": "#001b3e",
+                        "outline-variant": "#e4beba",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "secondary-container": "#4c96fe",
+                        "background": "#ebffe6",
+                        "on-secondary-container": "#002e60",
+                        "tertiary-fixed-dim": "#e8c426",
+                        "secondary-fixed": "#d6e3ff",
+                        "surface-container-low": "#d3ffd1",
+                        "surface-variant": "#96f89f",
+                        "inverse-on-surface": "#c6ffc6",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#ebffe6",
+                        "inverse-surface": "#003912",
+                        "on-primary-fixed": "#410004",
+                        "primary-fixed": "#ffdad7",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "tertiary-container": "#caa800",
+                        "tertiary": "#705d00",
+                        "surface-container": "#b8ffba",
+                        "outline": "#8f6f6d",
+                        "surface-tint": "#ba1724",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffe173",
+                        "surface-dim": "#8ef097",
+                        "on-primary-fixed-variant": "#930014",
+                        "on-surface": "#002107",
+                        "on-primary-container": "#fffbff",
+                        "primary-container": "#db3237",
+                        "on-tertiary-fixed-variant": "#554500",
+                        "inverse-primary": "#ffb3ae",
+                        "secondary": "#005db8",
+                        "on-tertiary-container": "#4c3e00",
+                        "on-background": "#002107",
+                        "on-surface-variant": "#5b403e",
+                        "on-tertiary-fixed": "#221b00",
+                        "primary": "#b71422",
+                        "surface-container-highest": "#96f89f",
+                        "surface-container-high": "#9cfea4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "margin-desktop": "48px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Quicksand"],
+                        "body-lg": ["Nunito Sans"],
+                        "button-text": ["Quicksand"],
+                        "headline-lg-mobile": ["Quicksand"],
+                        "headline-lg": ["Quicksand"],
+                        "body-md": ["Nunito Sans"],
+                        "headline-md": ["Quicksand"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["16px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "body-lg": ["20px", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "button-text": ["22px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["28px", { "lineHeight": "1.3", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.surface');
+            /* Playful dot pattern background */
+            background-image: radial-gradient(theme('colors.surface-container-high') 2px, transparent 2px);
+            background-size: 24px 24px;
+        }
+        
+        .toy-frame {
+            border: 8px dashed theme('colors.secondary-container');
+            box-shadow: 0 12px 0 0 theme('colors.secondary');
+            transition: all 0.2s ease;
+        }
+        
+        .toy-frame:hover {
+            transform: translateY(4px);
+            box-shadow: 0 8px 0 0 theme('colors.secondary');
+        }
+        
+        /* Star animation */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .star {
+            position: absolute;
+            color: theme('colors.tertiary-fixed');
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        
+        .star-1 { top: 15%; left: 10%; animation-delay: 0s; font-size: 2rem; }
+        .star-2 { top: 25%; right: 15%; animation-delay: 1s; font-size: 1.5rem; }
+        .star-3 { bottom: 20%; left: 20%; animation-delay: 0.5s; font-size: 1.8rem; }
+        .star-4 { bottom: 30%; right: 10%; animation-delay: 1.5s; font-size: 2.2rem; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-on-surface overflow-x-hidden">
+<!-- Decorative Stars -->
+<span class="material-symbols-outlined star star-1" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined star star-2" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined star star-3" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined star star-4" style="font-variation-settings: 'FILL' 1;">star</span>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop w-full max-w-container-max mx-auto relative z-10">
+<!-- Welcome Header -->
+<header class="text-center mb-gutter md:mb-margin-desktop max-w-2xl px-unit">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary drop-shadow-md mb-unit">
+                Thanks for buying a Pravia's Personalized Mini-Book!
+            </h1>
+<p class="font-headline-md text-headline-md text-on-surface-variant">
+                Here is your welcome gift <span class="material-symbols-outlined align-middle text-primary" style="font-variation-settings: 'FILL' 1;">sentiment_very_satisfied</span>
+</p>
+</header>
+<!-- Gift Canvas Area -->
+<section class="w-full max-w-lg mb-gutter md:mb-margin-desktop px-margin-mobile">
+<div class="toy-frame rounded-xl bg-surface-container-lowest p-unit overflow-hidden aspect-square relative group cursor-pointer">
+<!-- Using the requested placeholder directly -->
+<img alt="Welcome Gift Drawing" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2mtEo0RAcyVSLTBKuvbBzlIAd1w4aPkhFzignIX_lUmKp7A9fmROYsKEf8zZ-6VObe_YoDXPp0eRi1HokohkTS9lJYfM5QZUVAKY9M3p2ZrwEGqCjrDBaQ3d5_4rmwwSqOkT6_tBBbZ_6C_AzEQWtN1TLL9hQCw6yU8TswhkPZyhCocSo6i6qt8xtw3SJgUlhOghSSnn6APA0g0Uc-dUkvUh4QsrNt7RXHY-Y-ISvGuFvWBBe0YnAMVi1qbJr5jB3dpI"/>
+<!-- Corner Decorations inside frame -->
+<div class="absolute top-4 left-4 w-6 h-6 rounded-full bg-error-container border-2 border-error"></div>
+<div class="absolute top-4 right-4 w-6 h-6 rounded-full bg-secondary-fixed border-2 border-secondary"></div>
+<div class="absolute bottom-4 left-4 w-6 h-6 rounded-full bg-tertiary-fixed border-2 border-tertiary"></div>
+<div class="absolute bottom-4 right-4 w-6 h-6 rounded-full bg-primary-fixed border-2 border-primary"></div>
+</div>
+</section>
+<!-- Farewell Message -->
+<footer class="text-center px-margin-mobile bg-surface-container py-gutter px-margin-desktop rounded-full border-4 border-surface-variant shadow-sm transform hover:scale-105 transition-transform">
+<p class="font-headline-md text-headline-md text-secondary">
+                Hope you enjoy it!
+                <br/>
+<span class="font-label-bold text-label-bold text-primary mt-unit inline-block">Happy drawing!</span>
+</p>
+</footer>
+</main>
+</body></html>

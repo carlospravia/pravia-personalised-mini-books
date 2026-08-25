@@ -1,0 +1,12 @@
+# state.yaml — default-welcome-and-codes
+change: default-welcome-and-codes
+status: applied
+updated: 2026-08-25
+phases:
+  proposal: done
+  spec: done
+  design: done
+  tasks: done
+  apply: done
+  verify: pending
+next: verify or deploy/personalization

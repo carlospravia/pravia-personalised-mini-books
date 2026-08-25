@@ -1,0 +1,39 @@
+# OpenSpec DAG state — project-foundation
+# Survives compaction; updated after each phase transition.
+
+change: project-foundation
+branch: feature/project-foundation
+roadmap_phase: 0
+persistence: openspec
+updated: "2026-08-25"
+
+phases:
+  explore:
+    status: skipped
+    note: "Inputs provided by orchestrator; no exploration.md"
+  propose:
+    status: done
+    artifact: proposal.md
+  spec:
+    status: done
+    artifact: specs/repo-foundation/spec.md
+  design:
+    status: done
+    artifact: design.md
+  tasks:
+    status: done
+    artifact: tasks.md
+  apply:
+    status: done
+    note: "All 9 tasks [x]; stub config/codes.example.json (tasks filename)"
+  verify:
+    status: done
+    artifact: verify-report.md
+    verdict: PASS WITH WARNINGS
+  archive:
+    status: done
+    archived_to: openspec/changes/archive/2026-08-25-project-foundation/
+    archived_on: "2026-08-25"
+
+last_completed: archive
+next_recommended: []

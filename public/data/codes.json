@@ -1,0 +1,68 @@
+{
+  "queryParam": "code",
+  "entries": [
+    {
+      "code": "7XDVYZGL",
+      "classmateName": "Mateo",
+      "character": "ajolote",
+      "image": "images/ajolote-mateo.png",
+      "message": "Hi Mateo! Yay! Big hugs from your little friend. This gift is just for you!"
+    },
+    {
+      "code": "72PYXPGB",
+      "classmateName": "Hector",
+      "character": "caballero",
+      "image": "images/caballero-hector.png",
+      "message": "Hi Hector! Yay! Big hugs from your brave knight. This gift is just for you!"
+    },
+    {
+      "code": "W4AXKM89",
+      "classmateName": "Emma",
+      "character": "caballo",
+      "image": "images/caballo-emma.png",
+      "message": "Hi Emma! Yay! Big hugs from your happy horse. This gift is just for you!"
+    },
+    {
+      "code": "LZ47KKJC",
+      "classmateName": "Celeste",
+      "character": "capibara",
+      "image": "images/capibara-celeste.png",
+      "message": "Hi Celeste! Yay! Big hugs from your soft friend. This gift is just for you!"
+    },
+    {
+      "code": "W2RQGPRA",
+      "classmateName": "Cata",
+      "character": "chiwuawua",
+      "image": "images/chiwuawua-cata.png",
+      "message": "Hi Cata! Yay! Big hugs from your little dog. This gift is just for you!"
+    },
+    {
+      "code": "UKU9343P",
+      "classmateName": "Tessa",
+      "character": "puccini",
+      "image": "images/puccini-tessa.png",
+      "message": "Hi Tessa! Yay! Big hugs from your sweet dog. This gift is just for you!"
+    },
+    {
+      "code": "CDTZABXB",
+      "classmateName": "Felipe",
+      "character": "pug",
+      "image": "images/pug-felipe.png",
+      "message": "Hi Felipe! Yay! Big hugs from your funny pug. This gift is just for you!"
+    },
+    {
+      "code": "LFZSHCFK",
+      "classmateName": "Barrantes",
+      "character": "squishi",
+      "image": "images/squishi-barrantes.png",
+      "message": "Hi Barrantes! Yay! Big hugs from your soft friend. This gift is just for you!"
+    },
+    {
+      "code": "KPEGW3FA",
+      "classmateName": "Samantha",
+      "character": "teddy",
+      "image": "images/teddy-samantha.png",
+      "message": "Hi Samantha! Yay! Big hugs from your teddy bear. This gift is just for you!"
+    }
+  ]
+}
