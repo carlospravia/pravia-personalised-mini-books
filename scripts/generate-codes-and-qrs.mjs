@@ -65,7 +65,6 @@ function buildSheetHtml(entries) {
     <article class="card">
       <p class="name">${entry.classmateName}</p>
       <img src="qrs/${entry.character}-${entry.classmateName.toLowerCase()}.png" alt="QR for ${entry.classmateName}" />
-      <p class="meta">${entry.character}</p>
       <p class="code">${entry.code}</p>
     </article>`
     )
@@ -121,8 +120,7 @@ function buildSheetHtml(entries) {
       color: #005db8;
       line-height: 1.1;
     }
-    .meta { margin: 4px 0 0; font-size: 8pt; color: #5b403e; text-transform: capitalize; }
-    .code { margin: 2px 0 0; font-size: 8pt; letter-spacing: 0.06em; font-family: ui-monospace, monospace; color: #5b403e; }
+    .code { margin: 6px 0 0; font-size: 8pt; letter-spacing: 0.06em; font-family: ui-monospace, monospace; color: #5b403e; }
     @media print {
       .noprint { display: none !important; }
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
