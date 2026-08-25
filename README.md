@@ -81,7 +81,8 @@ public/                 # Raíz de Firebase Hosting
   images/               # 9 PNG del regalo
 config/codes.json       # SoT de códigos / mensajes
 print/
-  qr-sheet.html         # Imprimir en carta (3×3)
+  pravia-mini-books-qr-print-sheet-letter.pdf  # PDF listo para imprimir (carta)
+  qr-sheet.html         # Misma hoja en HTML (regenerable)
   qrs/                  # PNG de cada QR
 docs/                   # Charter, roadmap, design, assets fuente
 openspec/               # Changes SIFTIA / OpenSpec
@@ -109,17 +110,27 @@ Probar:
 
 ## Imprimir QRs (hoja carta)
 
+### PDF listo para imprimir (recomendado)
+
+Abrí o descargá el PDF ya generado (US Letter, 9 QRs con nombre, sin spoiler del personaje):
+
+**[`print/pravia-mini-books-qr-print-sheet-letter.pdf`](print/pravia-mini-books-qr-print-sheet-letter.pdf)**
+
+Imprimí a escala **100%** en papel **carta / Letter**.
+
+### HTML (regenerable)
+
 1. Abrir [`print/qr-sheet.html`](print/qr-sheet.html) en el navegador  
 2. Imprimir → papel **Letter / Carta**, escala **100%**  
 3. Cada celda muestra **nombre** + QR + código (sin el personaje, para no hacer spoiler)
 
-Regenerar QRs (conserva códigos y mensajes):
+Regenerar QRs / HTML (conserva códigos y mensajes; **no** regenera el PDF automáticamente):
 
 ```bash
 npm run generate:codes-qrs
 ```
 
-Forzar códigos nuevos (¡rompe QRs ya impresos!):
+Forzar códigos nuevos (¡rompe QRs ya impresos y hay que reexportar el PDF!):
 
 ```bash
 npm run generate:codes-qrs -- --force
