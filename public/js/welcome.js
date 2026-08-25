@@ -52,6 +52,35 @@ function appendSmiley(target) {
   target.append(icon);
 }
 
+/** Highlight classmate name in body copy (bold). */
+function appendTextWithBoldName(target, text, name) {
+  if (!name || !text.includes(name)) {
+    target.append(text);
+    return;
+  }
+  const parts = text.split(name);
+  parts.forEach((part, index) => {
+    if (part) target.append(part);
+    if (index < parts.length - 1) {
+      const strong = document.createElement("strong");
+      strong.className = "font-extrabold text-on-surface";
+      strong.textContent = name;
+      target.append(strong);
+    }
+  });
+}
+
+function renderPersonalizedHeadline(headline, name) {
+  clearChildren(headline);
+  headline.append("Thanks for your Pravia Mini-Book, ");
+  const nameEl = document.createElement("span");
+  // Secondary blue contrasts with the primary-red headline for clear personalization.
+  nameEl.className = "text-secondary";
+  nameEl.textContent = name;
+  headline.append(nameEl);
+  headline.append("!");
+}
+
 function renderDefault() {
   const headline = document.getElementById("headline");
   const body = document.getElementById("body-copy");
@@ -87,10 +116,11 @@ function renderPersonalized(entry) {
   const giftImage = document.getElementById("gift-image");
 
   const name = entry.classmateName || "friend";
-  if (headline) headline.textContent = `Thanks for your Pravia Mini-Book, ${name}!`;
+  if (headline) renderPersonalizedHeadline(headline, name);
   if (body) {
     clearChildren(body);
-    body.append(entry.message || `Here is your welcome gift, ${name}!`);
+    const message = entry.message || `Here is your welcome gift, ${name}!`;
+    appendTextWithBoldName(body, message, name);
     appendSmiley(body);
   }
 
