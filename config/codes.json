@@ -2,78 +2,79 @@
   "baseUrl": "https://personalised-mini-books.web.app",
   "queryParam": "code",
   "generatedAt": "2026-08-25T15:03:35.791Z",
+  "updatedAt": "2026-08-25T15:15:00.000Z",
   "contentHash": "51b00c00eb841bd4",
   "entries": [
     {
       "code": "7XDVYZGL",
       "classmateName": "Mateo",
       "character": "ajolote",
-      "image": "",
-      "message": "",
+      "image": "images/ajolote-mateo.png",
+      "message": "Hi Mateo! Your friendly axolotl is here with a special welcome gift for your Pravia Mini-Book adventure!",
       "assetFile": "ajolote-mateo.png"
     },
     {
       "code": "72PYXPGB",
       "classmateName": "Hector",
       "character": "caballero",
-      "image": "",
-      "message": "",
+      "image": "images/caballero-hector.png",
+      "message": "Hi Hector! Your brave knight is ready for a gallant quest—enjoy your special Mini-Book welcome gift!",
       "assetFile": "caballero-hector.png"
     },
     {
       "code": "W4AXKM89",
       "classmateName": "Emma",
       "character": "caballo",
-      "image": "",
-      "message": "",
+      "image": "images/caballo-emma.png",
+      "message": "Hi Emma! Your wonderful horse friend galloped over with a sparkling welcome gift just for you!",
       "assetFile": "caballo-emma.png"
     },
     {
       "code": "LZ47KKJC",
       "classmateName": "Celeste",
       "character": "capibara",
-      "image": "",
-      "message": "",
+      "image": "images/capibara-celeste.png",
+      "message": "Hi Celeste! Your calm capybara buddy brought a cozy welcome gift for your Mini-Book journey!",
       "assetFile": "capibara-celeste.png"
     },
     {
       "code": "W2RQGPRA",
       "classmateName": "Cata",
       "character": "chiwuawua",
-      "image": "",
-      "message": "",
+      "image": "images/chiwuawua-cata.png",
+      "message": "Hi Cata! Your tiny, mighty chihuahua friend wagged in with a cheerful Mini-Book welcome gift!",
       "assetFile": "chiwuawua-cata.png"
     },
     {
       "code": "UKU9343P",
       "classmateName": "Tessa",
       "character": "puccini",
-      "image": "",
-      "message": "",
+      "image": "images/puccini-tessa.png",
+      "message": "Hi Tessa! Your musical Puccini pal composed a joyful welcome gift for your Mini-Book story!",
       "assetFile": "puccini-tessa.png"
     },
     {
       "code": "CDTZABXB",
       "classmateName": "Felipe",
       "character": "pug",
-      "image": "",
-      "message": "",
+      "image": "images/pug-felipe.png",
+      "message": "Hi Felipe! Your playful pug rolled in with a happy welcome gift made just for you!",
       "assetFile": "pug-felipe.png"
     },
     {
       "code": "LFZSHCFK",
       "classmateName": "Barrantes",
       "character": "squishi",
-      "image": "",
-      "message": "",
+      "image": "images/squishi-barrantes.png",
+      "message": "Hi Barrantes! Your squishy friend bounced over with a soft, smiling welcome gift for your Mini-Book!",
       "assetFile": "squishi-barrantes.png"
     },
     {
       "code": "KPEGW3FA",
       "classmateName": "Samantha",
       "character": "teddy",
-      "image": "",
-      "message": "",
+      "image": "images/teddy-samantha.png",
+      "message": "Hi Samantha! Your cuddly teddy bear hugged this special welcome gift just for you!",
       "assetFile": "teddy-samantha.png"
     }
   ]

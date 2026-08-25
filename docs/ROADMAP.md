@@ -71,8 +71,8 @@ Phase 3 (Design polish + assets) ────────────┘
 |-------|--------|--------|---------------|
 | Phase 0 | Complete | Day 1 | M0 ✓ — README + layout + STANDARD; gobernanza bootstrap ✓ |
 | Phase 1 | In Progress | Day 1–2 | M1 — Specs + `?code=` accepted |
-| Phase 2 | In Progress | Day 2–3 | M2 — Default page + codes/QRs (personalization image deferred) |
-| Phase 3 | Not Started | Day 3–4 | M3 — Diseño/assets integrados |
+| Phase 2 | Complete | Day 2–3 | M2 ✓ — Default page + codes/QRs |
+| Phase 3 | In Progress | Day 3–4 | M3 — Personalized image + message per code |
 | Phase 3B | Not Started | Day 3–4 | M3b — README de uso + deploy notes (paralelo) |
 | Phase 4 | Not Started | Day 4–5 | M4 — Smoke móvil + Hosting live |
 

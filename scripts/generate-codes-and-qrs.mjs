@@ -142,8 +142,8 @@ async function main() {
       code,
       classmateName: mate.classmateName,
       character: mate.character,
-      image: "",
-      message: "",
+      image: `images/${mate.assetFile}`,
+      message: prev?.message ?? "",
       assetFile: mate.assetFile,
       url: `${BASE_URL}/?code=${encodeURIComponent(code)}`,
     };
@@ -169,10 +169,12 @@ async function main() {
 
   const publicPayload = {
     queryParam: "code",
-    entries: payload.entries.map(({ code, classmateName, character }) => ({
+    entries: payload.entries.map(({ code, classmateName, character, image, message }) => ({
       code,
       classmateName,
       character,
+      image,
+      message,
     })),
   };
 
