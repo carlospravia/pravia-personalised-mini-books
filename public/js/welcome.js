@@ -5,8 +5,7 @@
  */
 
 const DEFAULT_HEADLINE = "Welcome to Pravia's Mini-Books!";
-const DEFAULT_BODY =
-  "All you need is to scan the QR code on the back of your Mini-Book to receive your prize.";
+const DEFAULT_BODY = "Scan the QR on your Mini-Book. Yay — your gift is here!";
 
 function readCodeParam() {
   const params = new URLSearchParams(window.location.search);
@@ -72,13 +71,13 @@ function appendTextWithBoldName(target, text, name) {
 
 function renderPersonalizedHeadline(headline, name) {
   clearChildren(headline);
-  headline.append("Thanks for your Pravia Mini-Book, ");
+  headline.append("Hi ");
   const nameEl = document.createElement("span");
   // Secondary blue contrasts with the primary-red headline for clear personalization.
   nameEl.className = "text-secondary";
   nameEl.textContent = name;
   headline.append(nameEl);
-  headline.append("!");
+  headline.append("! This happy gift is for you!");
 }
 
 function renderDefault() {
