@@ -63,8 +63,8 @@ function buildSheetHtml(entries) {
     .map(
       (entry) => `
     <article class="card">
-      <img src="qrs/${entry.character}-${entry.classmateName.toLowerCase()}.png" alt="QR for ${entry.classmateName}" />
       <p class="name">${entry.classmateName}</p>
+      <img src="qrs/${entry.character}-${entry.classmateName.toLowerCase()}.png" alt="QR for ${entry.classmateName}" />
       <p class="meta">${entry.character}</p>
       <p class="code">${entry.code}</p>
     </article>`
@@ -75,51 +75,64 @@ function buildSheetHtml(entries) {
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Pravia Mini-Books — QR print sheet</title>
+  <title>Pravia Mini-Books — QR print sheet (US Letter)</title>
   <style>
-    @page { size: letter; margin: 0.5in; }
+    @page { size: letter portrait; margin: 0.4in; }
     * { box-sizing: border-box; }
     body {
-      font-family: system-ui, sans-serif;
+      font-family: "Nunito Sans", system-ui, sans-serif;
       margin: 0;
       color: #002107;
     }
     h1 {
-      font-size: 16pt;
+      font-family: Quicksand, system-ui, sans-serif;
+      font-size: 14pt;
       text-align: center;
-      margin: 0 0 12px;
+      margin: 0 0 8px;
+      color: #b71422;
     }
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(3, 1fr);
-      gap: 12px;
-      height: 9.5in;
+      gap: 10px;
+      height: 9.7in;
     }
     .card {
       border: 2px dashed #4c96fe;
       border-radius: 12px;
-      padding: 8px;
+      padding: 6px 8px 8px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      break-inside: avoid;
     }
     .card img {
-      width: 1.7in;
-      height: 1.7in;
+      width: 1.55in;
+      height: 1.55in;
     }
-    .name { font-weight: 700; margin: 6px 0 0; font-size: 12pt; }
-    .meta { margin: 2px 0; font-size: 9pt; color: #5b403e; text-transform: capitalize; }
-    .code { margin: 4px 0 0; font-size: 9pt; letter-spacing: 0.08em; font-family: ui-monospace, monospace; }
+    .name {
+      font-family: Quicksand, system-ui, sans-serif;
+      font-weight: 700;
+      margin: 0 0 4px;
+      font-size: 14pt;
+      color: #005db8;
+      line-height: 1.1;
+    }
+    .meta { margin: 4px 0 0; font-size: 8pt; color: #5b403e; text-transform: capitalize; }
+    .code { margin: 2px 0 0; font-size: 8pt; letter-spacing: 0.06em; font-family: ui-monospace, monospace; color: #5b403e; }
     @media print {
-      .noprint { display: none; }
+      .noprint { display: none !important; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
 <body>
-  <p class="noprint" style="text-align:center;font-size:12px;margin:8px">Print this page at 100% scale on US Letter.</p>
+  <p class="noprint" style="text-align:center;font-size:13px;margin:10px">
+    Open this file in a browser → Print → paper <strong>Letter</strong>, scale <strong>100%</strong>, margins default.
+  </p>
   <h1>Pravia's Mini-Books — Classmate QR codes</h1>
   <div class="grid">
 ${cards}

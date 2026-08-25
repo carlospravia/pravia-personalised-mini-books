@@ -2,113 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Pravia Mini-Books — QR print sheet</title>
+  <title>Pravia Mini-Books — QR print sheet (US Letter)</title>
   <style>
-    @page { size: letter; margin: 0.5in; }
+    @page { size: letter portrait; margin: 0.4in; }
     * { box-sizing: border-box; }
     body {
-      font-family: system-ui, sans-serif;
+      font-family: "Nunito Sans", system-ui, sans-serif;
       margin: 0;
       color: #002107;
     }
     h1 {
-      font-size: 16pt;
+      font-family: Quicksand, system-ui, sans-serif;
+      font-size: 14pt;
       text-align: center;
-      margin: 0 0 12px;
+      margin: 0 0 8px;
+      color: #b71422;
     }
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(3, 1fr);
-      gap: 12px;
-      height: 9.5in;
+      gap: 10px;
+      height: 9.7in;
     }
     .card {
       border: 2px dashed #4c96fe;
       border-radius: 12px;
-      padding: 8px;
+      padding: 6px 8px 8px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      break-inside: avoid;
     }
     .card img {
-      width: 1.7in;
-      height: 1.7in;
+      width: 1.55in;
+      height: 1.55in;
     }
-    .name { font-weight: 700; margin: 6px 0 0; font-size: 12pt; }
-    .meta { margin: 2px 0; font-size: 9pt; color: #5b403e; text-transform: capitalize; }
-    .code { margin: 4px 0 0; font-size: 9pt; letter-spacing: 0.08em; font-family: ui-monospace, monospace; }
+    .name {
+      font-family: Quicksand, system-ui, sans-serif;
+      font-weight: 700;
+      margin: 0 0 4px;
+      font-size: 14pt;
+      color: #005db8;
+      line-height: 1.1;
+    }
+    .meta { margin: 4px 0 0; font-size: 8pt; color: #5b403e; text-transform: capitalize; }
+    .code { margin: 2px 0 0; font-size: 8pt; letter-spacing: 0.06em; font-family: ui-monospace, monospace; color: #5b403e; }
     @media print {
-      .noprint { display: none; }
+      .noprint { display: none !important; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
   </style>
 </head>
 <body>
-  <p class="noprint" style="text-align:center;font-size:12px;margin:8px">Print this page at 100% scale on US Letter.</p>
+  <p class="noprint" style="text-align:center;font-size:13px;margin:10px">
+    Open this file in a browser → Print → paper <strong>Letter</strong>, scale <strong>100%</strong>, margins default.
+  </p>
   <h1>Pravia's Mini-Books — Classmate QR codes</h1>
   <div class="grid">
 
     <article class="card">
-      <img src="qrs/ajolote-mateo.png" alt="QR for Mateo" />
       <p class="name">Mateo</p>
+      <img src="qrs/ajolote-mateo.png" alt="QR for Mateo" />
       <p class="meta">ajolote</p>
       <p class="code">7XDVYZGL</p>
     </article>
 
     <article class="card">
-      <img src="qrs/caballero-hector.png" alt="QR for Hector" />
       <p class="name">Hector</p>
+      <img src="qrs/caballero-hector.png" alt="QR for Hector" />
       <p class="meta">caballero</p>
       <p class="code">72PYXPGB</p>
     </article>
 
     <article class="card">
-      <img src="qrs/caballo-emma.png" alt="QR for Emma" />
       <p class="name">Emma</p>
+      <img src="qrs/caballo-emma.png" alt="QR for Emma" />
       <p class="meta">caballo</p>
       <p class="code">W4AXKM89</p>
     </article>
 
     <article class="card">
-      <img src="qrs/capibara-celeste.png" alt="QR for Celeste" />
       <p class="name">Celeste</p>
+      <img src="qrs/capibara-celeste.png" alt="QR for Celeste" />
       <p class="meta">capibara</p>
       <p class="code">LZ47KKJC</p>
     </article>
 
     <article class="card">
-      <img src="qrs/chiwuawua-cata.png" alt="QR for Cata" />
       <p class="name">Cata</p>
+      <img src="qrs/chiwuawua-cata.png" alt="QR for Cata" />
       <p class="meta">chiwuawua</p>
       <p class="code">W2RQGPRA</p>
     </article>
 
     <article class="card">
-      <img src="qrs/puccini-tessa.png" alt="QR for Tessa" />
       <p class="name">Tessa</p>
+      <img src="qrs/puccini-tessa.png" alt="QR for Tessa" />
       <p class="meta">puccini</p>
       <p class="code">UKU9343P</p>
     </article>
 
     <article class="card">
-      <img src="qrs/pug-felipe.png" alt="QR for Felipe" />
       <p class="name">Felipe</p>
+      <img src="qrs/pug-felipe.png" alt="QR for Felipe" />
       <p class="meta">pug</p>
       <p class="code">CDTZABXB</p>
     </article>
 
     <article class="card">
-      <img src="qrs/squishi-barrantes.png" alt="QR for Barrantes" />
       <p class="name">Barrantes</p>
+      <img src="qrs/squishi-barrantes.png" alt="QR for Barrantes" />
       <p class="meta">squishi</p>
       <p class="code">LFZSHCFK</p>
     </article>
 
     <article class="card">
-      <img src="qrs/teddy-samantha.png" alt="QR for Samantha" />
       <p class="name">Samantha</p>
+      <img src="qrs/teddy-samantha.png" alt="QR for Samantha" />
       <p class="meta">teddy</p>
       <p class="code">KPEGW3FA</p>
     </article>
