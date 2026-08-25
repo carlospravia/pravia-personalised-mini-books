@@ -21,5 +21,6 @@ Do **not** commit client SDK config blobs into the repo unless a future change e
 
 ## Next
 
-- Add `firebase.json` (`public` → `public/`) in the Hosting skeleton change (Roadmap Phase 2+)
-- Deploy with `firebase deploy --only hosting` once the page exists
+- Deploy with `firebase deploy --only hosting` once ready
+- Personalized gift view (image + message per code) in a follow-up change
+- Regenerate QRs only if the public base URL changes (`npm run generate:codes-qrs`)

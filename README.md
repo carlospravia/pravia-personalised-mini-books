@@ -72,8 +72,24 @@ Abrir `http://localhost:8080`. Phase 0 solo reserva el directorio; no requiere `
 
 ## Firebase
 
-Proyecto Hosting: **`personalised-mini-books`** (ver [`.firebaserc`](.firebaserc) y [docs/guides/FIREBASE.md](docs/guides/FIREBASE.md)).  
-`firebase.json` y el deploy llegan en fases posteriores; v1 no necesita el SDK web de Firebase en el cliente.
+Proyecto Hosting: **`personalised-mini-books`** (ver [`.firebaserc`](.firebaserc) y [docs/guides/FIREBASE.md](docs/guides/FIREBASE.md)).
+
+URL pública esperada: `https://personalised-mini-books.web.app`  
+Personalización (próximo change): `https://personalised-mini-books.web.app/?code=XXXXXXXX`
+
+### Servir localmente
+
+```bash
+npm run serve:public
+# → http://localhost:8080
+```
+
+### Códigos QR (impresión)
+
+- Config SoT: [`config/codes.json`](config/codes.json)
+- PNGs + hoja carta: [`print/qr-sheet.html`](print/qr-sheet.html) (abrir en el navegador → Print)
+- Regenerar (conserva códigos existentes): `npm run generate:codes-qrs`
+- Forzar códigos nuevos: `npm run generate:codes-qrs -- --force`
 
 ## Gobernanza
 

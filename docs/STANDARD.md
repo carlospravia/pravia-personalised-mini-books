@@ -32,16 +32,10 @@ Sin i18n dinámico en v1: el contenido visible son mensajes fijos del operador.
 
 ## Config de personalización
 
-Stub de schema en `config/codes.example.json`:
-
-```json
-{ "code", "classmateName", "character", "image", "message" }
-```
-
-- `code`: placeholder en Phase 0 (`TODO-01` … `TODO-09`); códigos reales en un change posterior
-- `classmateName` / `character`: derivados del nombre de archivo
-- `image`: ruta relativa futura bajo `public/` (vacía hasta copiar assets)
-- `message`: texto EN de bienvenida (vacío hasta contenido final)
+- SoT: `config/codes.json` (códigos reales + metadata)
+- Runtime (Hosting): `public/data/codes.json` (subset publicado)
+- Stub histórico: `config/codes.example.json`
+- Regenerar QRs: `npm run generate:codes-qrs`
 
 ## Principios
 

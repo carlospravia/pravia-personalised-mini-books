@@ -175,8 +175,8 @@ Que cada niño, al escanear su QR, vea de inmediato un mensaje e imagen pensados
 |----|-------|--------|
 | DEC-TECH-001 | Sitio estático HTML/CSS/JS en Firebase Hosting | Accepted (kickoff) |
 | DEC-TECH-002 | Mapeo 9 códigos en config versionada del repo (JSON/YAML) | Accepted (kickoff) |
-| TBD-PARAM-SHAPE | Query vs path para el código | Open — design del primer change |
-| TBD-ASSETS | Nombres, imágenes, diseño base | Partially resolved — 9 PNG + design en `docs/assets/` y `docs/design/`; códigos/mensajes reales y copia a `public/` pendientes |
+| TBD-PARAM-SHAPE | Query vs path para el código | Accepted — query `?code=` → `https://personalised-mini-books.web.app/?code={CODE}` |
+| TBD-ASSETS | Nombres, imágenes, diseño base | Partially resolved — 9 PNG + design en `docs/`; mensajes personalizados e imágenes en `public/` pendientes |
 | TBD-FIREBASE-ID | ID del proyecto Firebase Hosting | Accepted — `personalised-mini-books` (Hosting; ver `.firebaserc`) |
 
 ---

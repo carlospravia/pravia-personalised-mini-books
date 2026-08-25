@@ -1,0 +1,12 @@
+{
+  "name": "pravia-personalised-mini-books",
+  "private": true,
+  "description": "Static personalized mini-book welcome pages on Firebase Hosting",
+  "scripts": {
+    "generate:codes-qrs": "node scripts/generate-codes-and-qrs.mjs",
+    "serve:public": "python3 -m http.server 8080 --directory public"
+  },
+  "devDependencies": {
+    "qrcode": "^1.5.4"
+  }
+}

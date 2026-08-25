@@ -1,0 +1,80 @@
+{
+  "baseUrl": "https://personalised-mini-books.web.app",
+  "queryParam": "code",
+  "generatedAt": "2026-08-25T15:03:35.791Z",
+  "contentHash": "51b00c00eb841bd4",
+  "entries": [
+    {
+      "code": "7XDVYZGL",
+      "classmateName": "Mateo",
+      "character": "ajolote",
+      "image": "",
+      "message": "",
+      "assetFile": "ajolote-mateo.png"
+    },
+    {
+      "code": "72PYXPGB",
+      "classmateName": "Hector",
+      "character": "caballero",
+      "image": "",
+      "message": "",
+      "assetFile": "caballero-hector.png"
+    },
+    {
+      "code": "W4AXKM89",
+      "classmateName": "Emma",
+      "character": "caballo",
+      "image": "",
+      "message": "",
+      "assetFile": "caballo-emma.png"
+    },
+    {
+      "code": "LZ47KKJC",
+      "classmateName": "Celeste",
+      "character": "capibara",
+      "image": "",
+      "message": "",
+      "assetFile": "capibara-celeste.png"
+    },
+    {
+      "code": "W2RQGPRA",
+      "classmateName": "Cata",
+      "character": "chiwuawua",
+      "image": "",
+      "message": "",
+      "assetFile": "chiwuawua-cata.png"
+    },
+    {
+      "code": "UKU9343P",
+      "classmateName": "Tessa",
+      "character": "puccini",
+      "image": "",
+      "message": "",
+      "assetFile": "puccini-tessa.png"
+    },
+    {
+      "code": "CDTZABXB",
+      "classmateName": "Felipe",
+      "character": "pug",
+      "image": "",
+      "message": "",
+      "assetFile": "pug-felipe.png"
+    },
+    {
+      "code": "LFZSHCFK",
+      "classmateName": "Barrantes",
+      "character": "squishi",
+      "image": "",
+      "message": "",
+      "assetFile": "squishi-barrantes.png"
+    },
+    {
+      "code": "KPEGW3FA",
+      "classmateName": "Samantha",
+      "character": "teddy",
+      "image": "",
+      "message": "",
+      "assetFile": "teddy-samantha.png"
+    }
+  ]
+}

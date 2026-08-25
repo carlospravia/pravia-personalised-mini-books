@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pravia's Mini-Books</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700;900&family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: "#ebffe6",
+            "surface-container": "#b8ffba",
+            "surface-container-high": "#9cfea4",
+            "surface-variant": "#96f89f",
+            "on-surface": "#002107",
+            "on-surface-variant": "#5b403e",
+            primary: "#b71422",
+            secondary: "#005db8",
+            "secondary-container": "#4c96fe",
+            tertiary: "#705d00",
+            "tertiary-fixed": "#ffe173",
+          },
+          borderRadius: {
+            DEFAULT: "1rem",
+            lg: "2rem",
+            xl: "3rem",
+            full: "9999px",
+          },
+          spacing: {
+            "margin-mobile": "16px",
+            gutter: "24px",
+            "margin-desktop": "48px",
+            unit: "8px",
+          },
+          fontFamily: {
+            headline: ["Quicksand", "sans-serif"],
+            body: ["Nunito Sans", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      background-color: #ebffe6;
+      background-image: radial-gradient(#9cfea4 2px, transparent 2px);
+      background-size: 24px 24px;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    .star {
+      position: absolute;
+      color: #ffe173;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    .star-1 { top: 12%; left: 8%; animation-delay: 0s; font-size: 2rem; }
+    .star-2 { top: 22%; right: 12%; animation-delay: 1s; font-size: 1.5rem; }
+    .star-3 { bottom: 18%; left: 16%; animation-delay: 0.5s; font-size: 1.8rem; }
+    .star-4 { bottom: 28%; right: 10%; animation-delay: 1.5s; font-size: 2.2rem; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-body text-on-surface overflow-x-hidden">
+  <span class="material-symbols-outlined star star-1" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+  <span class="material-symbols-outlined star star-2" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+  <span class="material-symbols-outlined star star-3" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+  <span class="material-symbols-outlined star star-4" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+
+  <main class="flex-grow flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop w-full max-w-[1200px] mx-auto relative z-10">
+    <header class="text-center mb-gutter md:mb-margin-desktop max-w-2xl px-unit">
+      <h1 id="headline" class="font-headline text-[32px] md:text-[40px] font-bold leading-tight text-primary drop-shadow-md mb-unit">
+        Welcome to Pravia's Mini-Books!
+      </h1>
+      <p id="body-copy" class="font-body text-[18px] md:text-[20px] font-medium leading-relaxed text-on-surface-variant">
+        All you need is to scan the QR code on the back of your Mini-Book to receive your prize.
+        <span class="material-symbols-outlined align-middle text-primary" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">sentiment_very_satisfied</span>
+      </p>
+    </header>
+
+    <section
+      id="message-card"
+      class="text-center px-margin-mobile md:px-margin-desktop py-gutter max-w-xl w-full rounded-full border-4 border-surface-variant bg-surface-container shadow-sm"
+      aria-live="polite"
+    >
+      <p class="font-headline text-[22px] md:text-[28px] font-bold text-secondary leading-snug">
+        Your adventure starts with a scan!
+      </p>
+      <p class="font-headline text-[16px] font-bold text-primary mt-unit">
+        Look on the back of your Mini-Book
+      </p>
+    </section>
+  </main>
+
+  <script type="module" src="./js/welcome.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "queryParam": "code",
+  "entries": [
+    {
+      "code": "7XDVYZGL",
+      "classmateName": "Mateo",
+      "character": "ajolote"
+    },
+    {
+      "code": "72PYXPGB",
+      "classmateName": "Hector",
+      "character": "caballero"
+    },
+    {
+      "code": "W4AXKM89",
+      "classmateName": "Emma",
+      "character": "caballo"
+    },
+    {
+      "code": "LZ47KKJC",
+      "classmateName": "Celeste",
+      "character": "capibara"
+    },
+    {
+      "code": "W2RQGPRA",
+      "classmateName": "Cata",
+      "character": "chiwuawua"
+    },
+    {
+      "code": "UKU9343P",
+      "classmateName": "Tessa",
+      "character": "puccini"
+    },
+    {
+      "code": "CDTZABXB",
+      "classmateName": "Felipe",
+      "character": "pug"
+    },
+    {
+      "code": "LFZSHCFK",
+      "classmateName": "Barrantes",
+      "character": "squishi"
+    },
+    {
+      "code": "KPEGW3FA",
+      "classmateName": "Samantha",
+      "character": "teddy"
+    }
+  ]
+}
