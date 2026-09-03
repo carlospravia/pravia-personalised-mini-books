@@ -13,7 +13,8 @@ const CONFETTI_COUNT = 56;
 /** @type {((event: Event) => void) | null} */
 let yayUnlockHandler = null;
 let confettiCleanupTimer = null;
-let yayCelebrated = false;
+let confettiFired = false;
+let audioPlayed = false;
 let yayButtonBound = false;
 
 function readCodeParam() {
@@ -102,9 +103,10 @@ function clearConfetti() {
   clearChildren(layer);
 }
 
-/** One-shot confetti burst timed with the yay SFX. */
-function burstConfettiOnce() {
-  if (prefersReducedMotion()) return;
+/** One-shot confetti burst. Tap path uses force so it still runs with reduced-motion. */
+function burstConfettiOnce(options = {}) {
+  const force = options.force === true;
+  if (!force && prefersReducedMotion()) return;
 
   const layer = document.getElementById("confetti-layer");
   if (!layer) return;
@@ -121,6 +123,11 @@ function burstConfettiOnce() {
     piece.style.animationDelay = `${Math.random() * 0.45}s`;
     piece.style.width = `${8 + Math.round(Math.random() * 6)}px`;
     piece.style.height = `${10 + Math.round(Math.random() * 8)}px`;
+    // Force visibility even when prefers-reduced-motion CSS would hide pieces.
+    if (force) {
+      piece.style.animation = `confetti-fall ${piece.style.animationDuration} cubic-bezier(0.22, 0.61, 0.36, 1) ${piece.style.animationDelay} forwards`;
+      piece.style.display = "block";
+    }
     layer.append(piece);
   }
 
@@ -131,8 +138,8 @@ function burstConfettiOnce() {
 
 function clearYayUnlock() {
   if (yayUnlockHandler) {
-    document.removeEventListener("pointerdown", yayUnlockHandler);
-    document.removeEventListener("touchend", yayUnlockHandler);
+    document.removeEventListener("pointerup", yayUnlockHandler);
+    document.removeEventListener("click", yayUnlockHandler);
     yayUnlockHandler = null;
   }
 }
@@ -142,7 +149,8 @@ function silenceYay() {
   const button = document.getElementById("yay-button");
   clearYayUnlock();
   clearConfetti();
-  yayCelebrated = false;
+  confettiFired = false;
+  audioPlayed = false;
   setHidden(button, true);
   if (audio) {
     audio.pause();
@@ -155,83 +163,80 @@ function silenceYay() {
 }
 
 /**
- * iOS-friendly unlock: run inside a direct button/document gesture.
- * Confetti fires in the same turn; audio play is attempted without a prior seek.
+ * Tap unlock: confetti ALWAYS fires once; audio is best-effort and optional.
  */
 function celebrateYayFromGesture() {
-  if (yayCelebrated) return;
-
   const audio = document.getElementById("yay-audio");
   const button = document.getElementById("yay-button");
-  if (!audio) return;
 
-  yayCelebrated = true;
   clearYayUnlock();
+
+  if (!confettiFired) {
+    confettiFired = true;
+    burstConfettiOnce({ force: true });
+  }
+
+  // Hide Tap me after the celebration gesture (confetti is the required effect).
   setHidden(button, true);
 
-  // Fire confetti in the user-gesture turn even if audio is flaky on iOS.
-  burstConfettiOnce();
+  if (!audio || audioPlayed) return;
 
+  audioPlayed = true;
   audio.volume = YAY_VOLUME;
   const attempt = audio.play();
   if (attempt && typeof attempt.then === "function") {
     attempt.catch(() => {
-      // Keep confetti; allow a second tap if audio still blocked.
-      yayCelebrated = false;
-      setHidden(button, false);
-      armYayUnlockFallback();
+      // Audio can fail on some Androids; confetti already ran.
+      audioPlayed = false;
     });
   }
 }
 
-function onYayUnlock(event) {
-  if (event) {
-    // Avoid duplicate synthetic click after touchend on iOS.
-    if (event.type === "touchend") event.preventDefault();
-  }
+function onYayUnlock() {
   celebrateYayFromGesture();
 }
 
 function armYayUnlockFallback() {
   clearYayUnlock();
   yayUnlockHandler = onYayUnlock;
-  document.addEventListener("pointerdown", yayUnlockHandler, { once: true });
-  document.addEventListener("touchend", yayUnlockHandler, { once: true, passive: false });
+  // click is the most reliable cross-Android gesture; avoid touchend+preventDefault.
+  document.addEventListener("click", yayUnlockHandler, { once: true });
 }
 
 function bindYayButton() {
   const button = document.getElementById("yay-button");
   if (!button || yayButtonBound) return;
   yayButtonBound = true;
-  // Direct button handlers are the most reliable unlock path on iPhone Safari.
   button.addEventListener("click", onYayUnlock);
-  button.addEventListener("touchend", onYayUnlock, { passive: false });
 }
 
 function playYayOnce() {
   const audio = document.getElementById("yay-audio");
   const button = document.getElementById("yay-button");
-  if (!audio) return;
+  if (!button) return;
 
-  yayCelebrated = false;
+  confettiFired = false;
+  audioPlayed = false;
   clearYayUnlock();
   bindYayButton();
   setHidden(button, true);
 
-  audio.volume = YAY_VOLUME;
-  try {
-    audio.load();
-  } catch {
-    // ignore
+  if (!audio) {
+    setHidden(button, false);
+    armYayUnlockFallback();
+    return;
   }
+
+  audio.volume = YAY_VOLUME;
 
   const attempt = audio.play();
   if (attempt && typeof attempt.then === "function") {
     attempt
       .then(() => {
-        yayCelebrated = true;
+        audioPlayed = true;
+        confettiFired = true;
         setHidden(button, true);
-        burstConfettiOnce();
+        burstConfettiOnce({ force: true });
       })
       .catch(() => {
         setHidden(button, false);
