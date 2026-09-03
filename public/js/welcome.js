@@ -13,6 +13,8 @@ const CONFETTI_COUNT = 56;
 /** @type {((event: Event) => void) | null} */
 let yayUnlockHandler = null;
 let confettiCleanupTimer = null;
+let yayCelebrated = false;
+let yayButtonBound = false;
 
 function readCodeParam() {
   const params = new URLSearchParams(window.location.search);
@@ -130,6 +132,7 @@ function burstConfettiOnce() {
 function clearYayUnlock() {
   if (yayUnlockHandler) {
     document.removeEventListener("pointerdown", yayUnlockHandler);
+    document.removeEventListener("touchend", yayUnlockHandler);
     yayUnlockHandler = null;
   }
 }
@@ -139,11 +142,70 @@ function silenceYay() {
   const button = document.getElementById("yay-button");
   clearYayUnlock();
   clearConfetti();
+  yayCelebrated = false;
   setHidden(button, true);
   if (audio) {
     audio.pause();
-    audio.currentTime = 0;
+    try {
+      audio.currentTime = 0;
+    } catch {
+      // Ignore seek errors on some mobile browsers.
+    }
   }
+}
+
+/**
+ * iOS-friendly unlock: run inside a direct button/document gesture.
+ * Confetti fires in the same turn; audio play is attempted without a prior seek.
+ */
+function celebrateYayFromGesture() {
+  if (yayCelebrated) return;
+
+  const audio = document.getElementById("yay-audio");
+  const button = document.getElementById("yay-button");
+  if (!audio) return;
+
+  yayCelebrated = true;
+  clearYayUnlock();
+  setHidden(button, true);
+
+  // Fire confetti in the user-gesture turn even if audio is flaky on iOS.
+  burstConfettiOnce();
+
+  audio.volume = YAY_VOLUME;
+  const attempt = audio.play();
+  if (attempt && typeof attempt.then === "function") {
+    attempt.catch(() => {
+      // Keep confetti; allow a second tap if audio still blocked.
+      yayCelebrated = false;
+      setHidden(button, false);
+      armYayUnlockFallback();
+    });
+  }
+}
+
+function onYayUnlock(event) {
+  if (event) {
+    // Avoid duplicate synthetic click after touchend on iOS.
+    if (event.type === "touchend") event.preventDefault();
+  }
+  celebrateYayFromGesture();
+}
+
+function armYayUnlockFallback() {
+  clearYayUnlock();
+  yayUnlockHandler = onYayUnlock;
+  document.addEventListener("pointerdown", yayUnlockHandler, { once: true });
+  document.addEventListener("touchend", yayUnlockHandler, { once: true, passive: false });
+}
+
+function bindYayButton() {
+  const button = document.getElementById("yay-button");
+  if (!button || yayButtonBound) return;
+  yayButtonBound = true;
+  // Direct button handlers are the most reliable unlock path on iPhone Safari.
+  button.addEventListener("click", onYayUnlock);
+  button.addEventListener("touchend", onYayUnlock, { passive: false });
 }
 
 function playYayOnce() {
@@ -151,34 +213,33 @@ function playYayOnce() {
   const button = document.getElementById("yay-button");
   if (!audio) return;
 
+  yayCelebrated = false;
   clearYayUnlock();
+  bindYayButton();
   setHidden(button, true);
+
   audio.volume = YAY_VOLUME;
-  audio.currentTime = 0;
+  try {
+    audio.load();
+  } catch {
+    // ignore
+  }
 
   const attempt = audio.play();
   if (attempt && typeof attempt.then === "function") {
     attempt
       .then(() => {
+        yayCelebrated = true;
         setHidden(button, true);
         burstConfettiOnce();
       })
       .catch(() => {
         setHidden(button, false);
-        yayUnlockHandler = () => {
-          audio.currentTime = 0;
-          audio.volume = YAY_VOLUME;
-          audio
-            .play()
-            .then(() => {
-              burstConfettiOnce();
-            })
-            .catch(() => {});
-          setHidden(button, true);
-          clearYayUnlock();
-        };
-        document.addEventListener("pointerdown", yayUnlockHandler, { once: true });
+        armYayUnlockFallback();
       });
+  } else {
+    setHidden(button, false);
+    armYayUnlockFallback();
   }
 }
 
