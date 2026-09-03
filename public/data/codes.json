@@ -63,6 +63,13 @@
       "character": "teddy",
       "image": "images/teddy-samantha.png",
       "message": "Hi Samantha! Yay! Big hugs from your teddy bear. This gift is just for you!"
+    },
+    {
+      "code": "H5EMQ8T7",
+      "classmateName": "Friend",
+      "character": "happy-face",
+      "image": "images/happy-face.png",
+      "message": "Hi Friend! Yay! Big hugs from your happy smile. This gift is just for you!"
     }
   ]
 }

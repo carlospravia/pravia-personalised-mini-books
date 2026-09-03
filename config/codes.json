@@ -1,8 +1,8 @@
 {
   "baseUrl": "https://personalised-mini-books.web.app",
   "queryParam": "code",
-  "generatedAt": "2026-08-25T20:51:48.203Z",
-  "contentHash": "51b00c00eb841bd4",
+  "generatedAt": "2026-09-03T01:44:36.627Z",
+  "contentHash": "5242cf2cddf93621",
   "entries": [
     {
       "code": "7XDVYZGL",
@@ -75,6 +75,14 @@
       "image": "images/teddy-samantha.png",
       "message": "Hi Samantha! Yay! Big hugs from your teddy bear. This gift is just for you!",
       "assetFile": "teddy-samantha.png"
+    },
+    {
+      "code": "H5EMQ8T7",
+      "classmateName": "Friend",
+      "character": "happy-face",
+      "image": "images/happy-face.png",
+      "message": "Hi Friend! Yay! Big hugs from your happy smile. This gift is just for you!",
+      "assetFile": "happy-face.png"
     }
   ]
 }

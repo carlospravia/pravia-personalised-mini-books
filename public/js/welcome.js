@@ -1,11 +1,18 @@
 /**
  * Welcome page controller.
  * Missing/invalid ?code= → default EN copy (no image, no code list leak).
- * Valid ?code= → personalized message + gift image.
+ * Valid ?code= → personalized message + gift image + one-shot yay SFX + confetti.
  */
 
 const DEFAULT_HEADLINE = "Welcome to Pravia's Mini-Books!";
 const DEFAULT_BODY = "Scan the QR on your Mini-Book. Yay — your gift is here!";
+const YAY_VOLUME = 0.6;
+const CONFETTI_COLORS = ["#b71422", "#005db8", "#4c96fe", "#ffe173", "#9cfea4", "#ffdad7"];
+const CONFETTI_COUNT = 56;
+
+/** @type {((event: Event) => void) | null} */
+let yayUnlockHandler = null;
+let confettiCleanupTimer = null;
 
 function readCodeParam() {
   const params = new URLSearchParams(window.location.search);
@@ -80,6 +87,101 @@ function renderPersonalizedHeadline(headline, name) {
   headline.append("! This happy gift is for you!");
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function clearConfetti() {
+  const layer = document.getElementById("confetti-layer");
+  if (confettiCleanupTimer) {
+    clearTimeout(confettiCleanupTimer);
+    confettiCleanupTimer = null;
+  }
+  clearChildren(layer);
+}
+
+/** One-shot confetti burst timed with the yay SFX. */
+function burstConfettiOnce() {
+  if (prefersReducedMotion()) return;
+
+  const layer = document.getElementById("confetti-layer");
+  if (!layer) return;
+
+  clearConfetti();
+
+  for (let i = 0; i < CONFETTI_COUNT; i += 1) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+    piece.style.left = `${Math.random() * 100}%`;
+    piece.style.backgroundColor = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    piece.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 160)}px`);
+    piece.style.animationDuration = `${2.4 + Math.random() * 1.8}s`;
+    piece.style.animationDelay = `${Math.random() * 0.45}s`;
+    piece.style.width = `${8 + Math.round(Math.random() * 6)}px`;
+    piece.style.height = `${10 + Math.round(Math.random() * 8)}px`;
+    layer.append(piece);
+  }
+
+  confettiCleanupTimer = setTimeout(() => {
+    clearConfetti();
+  }, 5200);
+}
+
+function clearYayUnlock() {
+  if (yayUnlockHandler) {
+    document.removeEventListener("pointerdown", yayUnlockHandler);
+    yayUnlockHandler = null;
+  }
+}
+
+function silenceYay() {
+  const audio = document.getElementById("yay-audio");
+  const button = document.getElementById("yay-button");
+  clearYayUnlock();
+  clearConfetti();
+  setHidden(button, true);
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+}
+
+function playYayOnce() {
+  const audio = document.getElementById("yay-audio");
+  const button = document.getElementById("yay-button");
+  if (!audio) return;
+
+  clearYayUnlock();
+  setHidden(button, true);
+  audio.volume = YAY_VOLUME;
+  audio.currentTime = 0;
+
+  const attempt = audio.play();
+  if (attempt && typeof attempt.then === "function") {
+    attempt
+      .then(() => {
+        setHidden(button, true);
+        burstConfettiOnce();
+      })
+      .catch(() => {
+        setHidden(button, false);
+        yayUnlockHandler = () => {
+          audio.currentTime = 0;
+          audio.volume = YAY_VOLUME;
+          audio
+            .play()
+            .then(() => {
+              burstConfettiOnce();
+            })
+            .catch(() => {});
+          setHidden(button, true);
+          clearYayUnlock();
+        };
+        document.addEventListener("pointerdown", yayUnlockHandler, { once: true });
+      });
+  }
+}
+
 function renderDefault() {
   const headline = document.getElementById("headline");
   const body = document.getElementById("body-copy");
@@ -87,6 +189,8 @@ function renderDefault() {
   const giftSection = document.getElementById("gift-section");
   const giftFooter = document.getElementById("gift-footer");
   const giftImage = document.getElementById("gift-image");
+
+  silenceYay();
 
   if (headline) headline.textContent = DEFAULT_HEADLINE;
   if (body) {
@@ -133,6 +237,7 @@ function renderPersonalized(entry) {
   setHidden(giftFooter, false);
 
   document.title = `${name}'s gift — Pravia's Mini-Books`;
+  playYayOnce();
 }
 
 async function main() {

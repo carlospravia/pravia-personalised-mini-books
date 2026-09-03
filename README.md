@@ -24,13 +24,14 @@ Crédito en la app: *A Mini-Book gift by Gabriel Pravia · Term II English Proje
 ## Cómo funciona
 
 1. El visitante abre la URL **sin** `code` → página **default**: invita a escanear el QR del Mini-Book.
-2. Con `?code=XXXXXXXX` **válido** → título personalizado (nombre en azul), mensaje en inglés fácil (nombre en **negrita**), imagen del regalo, footer “Hope you enjoy it!”.
-3. Con código **inválido** → misma página default (no se listan códigos ni nombres).
+2. Con `?code=XXXXXXXX` **válido** → título personalizado (nombre en azul), mensaje en inglés fácil (nombre en **negrita**), imagen del regalo, footer “Hope you enjoy it!”, y un “Yay!” corto (si el navegador bloquea el autoplay, aparece **Tap me!** para reproducirlo).
+3. Con código **inválido** → misma página default (no se listan códigos ni nombres; sin audio).
 
 Ejemplos:
 
 - Default: https://personalised-mini-books.web.app/
 - Mateo: https://personalised-mini-books.web.app/?code=7XDVYZGL
+- Friend (genérico): https://personalised-mini-books.web.app/?code=H5EMQ8T7
 
 Códigos y mensajes viven en [`config/codes.json`](config/codes.json) (fuente de verdad) y se publican en [`public/data/codes.json`](public/data/codes.json) para el navegador.
 
@@ -39,9 +40,10 @@ Códigos y mensajes viven en [`config/codes.json`](config/codes.json) (fuente de
 ## Qué incluye este repo
 
 - Página estática mobile-first (`public/`), diseño lúdico (Quicksand / Nunito, marco “toy”)
-- **9 compañeros** mapeados a códigos alfanuméricos fijos
-- Imágenes en `public/images/` (copia de `docs/assets/`)
+- **9 compañeros** + **1 código genérico Friend** mapeados a códigos alfanuméricos fijos
+- Imágenes en `public/images/` (copia de `docs/assets/` + `happy-face.png` genérico)
 - Hoja imprimible **US Letter** con los 9 QRs + nombre (sin spoilear el personaje): [`print/qr-sheet.html`](print/qr-sheet.html)
+- Hoja **3 QRs Friend** (genérico, mismo código) para mini-books sin nombre: [`print/generic-friend-qr-sheet.html`](print/generic-friend-qr-sheet.html)
 - Deploy en **Firebase Hosting** (`personalised-mini-books`)
 - Gobernanza **SIFTIA / OpenSpec** (`docs/`, `openspec/`)
 
@@ -58,6 +60,7 @@ Códigos y mensajes viven en [`config/codes.json`](config/codes.json) (fuente de
 | Felipe | `CDTZABXB` |
 | Barrantes | `LFZSHCFK` |
 | Samantha | `KPEGW3FA` |
+| Friend (genérico) | `H5EMQ8T7` |
 
 ---
 
@@ -76,13 +79,15 @@ Códigos y mensajes viven en [`config/codes.json`](config/codes.json) (fuente de
 ```
 public/                 # Raíz de Firebase Hosting
   index.html            # Página única
-  js/welcome.js         # Default vs personalizado (?code=)
+  js/welcome.js         # Default vs personalizado (?code=) + yay SFX
   data/codes.json       # Mapa publicado (code → message + image)
-  images/               # 9 PNG del regalo
+  images/               # PNG del regalo (9 compañeros + happy-face)
+  audio/                # SFX “Yay!” (yay.mp3 + ATTRIBUTION.md)
 config/codes.json       # SoT de códigos / mensajes
 print/
   pravia-mini-books-qr-print-sheet-letter.pdf  # PDF listo para imprimir (carta)
-  qr-sheet.html         # Misma hoja en HTML (regenerable)
+  qr-sheet.html         # Hoja 9 compañeros (regenerable)
+  generic-friend-qr-sheet.html  # Hoja 3× Friend genérico (regenerable)
   qrs/                  # PNG de cada QR
 docs/                   # Charter, roadmap, design, assets fuente
 openspec/               # Changes SIFTIA / OpenSpec
@@ -104,6 +109,7 @@ Probar:
 
 - http://localhost:8080/
 - http://localhost:8080/?code=7XDVYZGL
+- http://localhost:8080/?code=H5EMQ8T7
 - http://localhost:8080/?code=bad
 
 ---
@@ -120,9 +126,17 @@ Imprimí a escala **100%** en papel **carta / Letter**.
 
 ### HTML (regenerable)
 
+**9 compañeros**
+
 1. Abrir [`print/qr-sheet.html`](print/qr-sheet.html) en el navegador  
 2. Imprimir → papel **Letter / Carta**, escala **100%**  
 3. Cada celda muestra **nombre** + QR + código (sin el personaje, para no hacer spoiler)
+
+**Friend genérico (3 QRs idénticos)**
+
+1. Abrir [`print/generic-friend-qr-sheet.html`](print/generic-friend-qr-sheet.html) en el navegador  
+2. Imprimir → papel **Letter / Carta**, escala **100%**  
+3. Cortar las tres tarjetas y pegarlas en mini-books sin nombre asignado
 
 Regenerar QRs / HTML (conserva códigos y mensajes; **no** regenera el PDF automáticamente):
 

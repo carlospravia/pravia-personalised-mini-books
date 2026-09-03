@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Generate 9 alphanumeric classmate codes, write config maps, and QR PNGs + letter sheet.
+ * Generate alphanumeric classmate codes (9 named + 1 generic Friend), write config maps,
+ * QR PNGs, the 3×3 classmate letter sheet, and the Friend 3-up sheet.
  * Re-running preserves existing codes in config/codes.json unless --force is passed.
  */
 import { createHash, randomInt } from "node:crypto";
@@ -15,6 +16,7 @@ const root = path.resolve(__dirname, "..");
 const BASE_URL = "https://personalised-mini-books.web.app";
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const CODE_LENGTH = 8;
+const GENERIC_CHARACTER = "happy-face";
 
 const CLASSMATES = [
   { character: "ajolote", classmateName: "Mateo", assetFile: "ajolote-mateo.png" },
@@ -26,6 +28,7 @@ const CLASSMATES = [
   { character: "pug", classmateName: "Felipe", assetFile: "pug-felipe.png" },
   { character: "squishi", classmateName: "Barrantes", assetFile: "squishi-barrantes.png" },
   { character: "teddy", classmateName: "Samantha", assetFile: "teddy-samantha.png" },
+  { character: "happy-face", classmateName: "Friend", assetFile: "happy-face.png" },
 ];
 
 function generateCode(used) {
@@ -58,13 +61,17 @@ async function loadExistingCodes() {
   }
 }
 
+function qrFileName(entry) {
+  return `${entry.character}-${entry.classmateName.toLowerCase()}.png`;
+}
+
 function buildSheetHtml(entries) {
   const cards = entries
     .map(
       (entry) => `
     <article class="card">
       <p class="name">${entry.classmateName}</p>
-      <img src="qrs/${entry.character}-${entry.classmateName.toLowerCase()}.png" alt="QR for ${entry.classmateName}" />
+      <img src="qrs/${qrFileName(entry)}" alt="QR for ${entry.classmateName}" />
       <p class="code">${entry.code}</p>
     </article>`
     )
@@ -140,6 +147,94 @@ ${cards}
 `;
 }
 
+function buildGenericFriendSheetHtml(entry) {
+  const src = `qrs/${qrFileName(entry)}`;
+  const card = `
+    <article class="card">
+      <p class="name">${entry.classmateName}</p>
+      <img src="${src}" alt="QR for ${entry.classmateName}" />
+      <p class="code">${entry.code}</p>
+    </article>`;
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pravia Mini-Books — Friend QR (generic) print sheet</title>
+  <style>
+    @page { size: letter portrait; margin: 0.5in; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Nunito Sans", system-ui, sans-serif;
+      margin: 0;
+      color: #002107;
+    }
+    h1 {
+      font-family: Quicksand, system-ui, sans-serif;
+      font-size: 14pt;
+      text-align: center;
+      margin: 0 0 16px;
+      color: #b71422;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+      min-height: 4.5in;
+    }
+    .card {
+      border: 2px dashed #4c96fe;
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      break-inside: avoid;
+    }
+    .card img {
+      width: 2.2in;
+      height: 2.2in;
+    }
+    .name {
+      font-family: Quicksand, system-ui, sans-serif;
+      font-weight: 700;
+      margin: 0 0 8px;
+      font-size: 18pt;
+      color: #005db8;
+      line-height: 1.1;
+    }
+    .code {
+      margin: 10px 0 0;
+      font-size: 10pt;
+      letter-spacing: 0.06em;
+      font-family: ui-monospace, monospace;
+      color: #5b403e;
+    }
+    @media print {
+      .noprint { display: none !important; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <p class="noprint" style="text-align:center;font-size:13px;margin:10px">
+    Open this file in a browser → Print → paper <strong>Letter</strong>, scale <strong>100%</strong>, margins default.
+    Cut out the three Friend QR cards for unnamed Mini-Books.
+  </p>
+  <h1>Pravia's Mini-Books — Friend QR (generic)</h1>
+  <div class="grid">
+${card}
+${card}
+${card}
+  </div>
+</body>
+</html>
+`;
+}
+
 async function main() {
   const force = process.argv.includes("--force");
   const existing = force ? new Map() : await loadExistingCodes();
@@ -200,12 +295,7 @@ async function main() {
   );
 
   for (const entry of entries) {
-    const file = path.join(
-      root,
-      "print",
-      "qrs",
-      `${entry.character}-${entry.classmateName.toLowerCase()}.png`
-    );
+    const file = path.join(root, "print", "qrs", qrFileName(entry));
     await QRCode.toFile(file, entry.url, {
       type: "png",
       width: 512,
@@ -214,12 +304,23 @@ async function main() {
     });
   }
 
-  await writeFile(path.join(root, "print", "qr-sheet.html"), buildSheetHtml(entries));
+  const classmateEntries = entries.filter((entry) => entry.character !== GENERIC_CHARACTER);
+  const friendEntry = entries.find((entry) => entry.character === GENERIC_CHARACTER);
+  if (!friendEntry) {
+    throw new Error("Missing happy-face Friend entry");
+  }
+
+  await writeFile(path.join(root, "print", "qr-sheet.html"), buildSheetHtml(classmateEntries));
+  await writeFile(
+    path.join(root, "print", "generic-friend-qr-sheet.html"),
+    buildGenericFriendSheetHtml(friendEntry)
+  );
 
   console.log(`Wrote ${entries.length} codes → config/codes.json, public/data/codes.json, print/qrs/`);
   for (const entry of entries) {
     console.log(`  ${entry.classmateName.padEnd(10)} ${entry.code}  ${entry.url}`);
   }
+  console.log("Wrote print/qr-sheet.html (9 classmates) + print/generic-friend-qr-sheet.html (3-up Friend)");
 }
 
 main().catch((err) => {

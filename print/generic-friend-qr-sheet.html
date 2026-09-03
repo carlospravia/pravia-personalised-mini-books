@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pravia Mini-Books — Friend QR (generic) print sheet</title>
+  <style>
+    @page { size: letter portrait; margin: 0.5in; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Nunito Sans", system-ui, sans-serif;
+      margin: 0;
+      color: #002107;
+    }
+    h1 {
+      font-family: Quicksand, system-ui, sans-serif;
+      font-size: 14pt;
+      text-align: center;
+      margin: 0 0 16px;
+      color: #b71422;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+      min-height: 4.5in;
+    }
+    .card {
+      border: 2px dashed #4c96fe;
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      break-inside: avoid;
+    }
+    .card img {
+      width: 2.2in;
+      height: 2.2in;
+    }
+    .name {
+      font-family: Quicksand, system-ui, sans-serif;
+      font-weight: 700;
+      margin: 0 0 8px;
+      font-size: 18pt;
+      color: #005db8;
+      line-height: 1.1;
+    }
+    .code {
+      margin: 10px 0 0;
+      font-size: 10pt;
+      letter-spacing: 0.06em;
+      font-family: ui-monospace, monospace;
+      color: #5b403e;
+    }
+    @media print {
+      .noprint { display: none !important; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <p class="noprint" style="text-align:center;font-size:13px;margin:10px">
+    Open this file in a browser → Print → paper <strong>Letter</strong>, scale <strong>100%</strong>, margins default.
+    Cut out the three Friend QR cards for unnamed Mini-Books.
+  </p>
+  <h1>Pravia's Mini-Books — Friend QR (generic)</h1>
+  <div class="grid">
+
+    <article class="card">
+      <p class="name">Friend</p>
+      <img src="qrs/happy-face-friend.png" alt="QR for Friend" />
+      <p class="code">H5EMQ8T7</p>
+    </article>
+
+    <article class="card">
+      <p class="name">Friend</p>
+      <img src="qrs/happy-face-friend.png" alt="QR for Friend" />
+      <p class="code">H5EMQ8T7</p>
+    </article>
+
+    <article class="card">
+      <p class="name">Friend</p>
+      <img src="qrs/happy-face-friend.png" alt="QR for Friend" />
+      <p class="code">H5EMQ8T7</p>
+    </article>
+  </div>
+</body>
+</html>
