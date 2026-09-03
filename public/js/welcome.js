@@ -103,7 +103,7 @@ function clearConfetti() {
   clearChildren(layer);
 }
 
-/** One-shot confetti burst. Tap path uses force so it still runs with reduced-motion. */
+/** One-shot confetti burst. Always runs when force=true (Tap me / celebrate). */
 function burstConfettiOnce(options = {}) {
   const force = options.force === true;
   if (!force && prefersReducedMotion()) return;
@@ -121,13 +121,9 @@ function burstConfettiOnce(options = {}) {
     piece.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 160)}px`);
     piece.style.animationDuration = `${2.4 + Math.random() * 1.8}s`;
     piece.style.animationDelay = `${Math.random() * 0.45}s`;
+    piece.style.animationFillMode = "both";
     piece.style.width = `${8 + Math.round(Math.random() * 6)}px`;
     piece.style.height = `${10 + Math.round(Math.random() * 8)}px`;
-    // Force visibility even when prefers-reduced-motion CSS would hide pieces.
-    if (force) {
-      piece.style.animation = `confetti-fall ${piece.style.animationDuration} cubic-bezier(0.22, 0.61, 0.36, 1) ${piece.style.animationDelay} forwards`;
-      piece.style.display = "block";
-    }
     layer.append(piece);
   }
 
@@ -138,8 +134,8 @@ function burstConfettiOnce(options = {}) {
 
 function clearYayUnlock() {
   if (yayUnlockHandler) {
-    document.removeEventListener("pointerup", yayUnlockHandler);
-    document.removeEventListener("click", yayUnlockHandler);
+    document.removeEventListener("click", yayUnlockHandler, true);
+    document.removeEventListener("click", yayUnlockHandler, false);
     yayUnlockHandler = null;
   }
 }
@@ -176,7 +172,6 @@ function celebrateYayFromGesture() {
     burstConfettiOnce({ force: true });
   }
 
-  // Hide Tap me after the celebration gesture (confetti is the required effect).
   setHidden(button, true);
 
   if (!audio || audioPlayed) return;
@@ -186,21 +181,23 @@ function celebrateYayFromGesture() {
   const attempt = audio.play();
   if (attempt && typeof attempt.then === "function") {
     attempt.catch(() => {
-      // Audio can fail on some Androids; confetti already ran.
       audioPlayed = false;
     });
   }
 }
 
-function onYayUnlock() {
+function onYayUnlock(event) {
+  if (event && typeof event.stopPropagation === "function") {
+    event.stopPropagation();
+  }
   celebrateYayFromGesture();
 }
 
 function armYayUnlockFallback() {
   clearYayUnlock();
   yayUnlockHandler = onYayUnlock;
-  // click is the most reliable cross-Android gesture; avoid touchend+preventDefault.
-  document.addEventListener("click", yayUnlockHandler, { once: true });
+  // Capture phase so we still get the tap even if something stops bubbling.
+  document.addEventListener("click", yayUnlockHandler, { once: true, capture: true });
 }
 
 function bindYayButton() {
@@ -234,9 +231,11 @@ function playYayOnce() {
     attempt
       .then(() => {
         audioPlayed = true;
-        confettiFired = true;
+        if (!confettiFired) {
+          confettiFired = true;
+          burstConfettiOnce({ force: true });
+        }
         setHidden(button, true);
-        burstConfettiOnce({ force: true });
       })
       .catch(() => {
         setHidden(button, false);
