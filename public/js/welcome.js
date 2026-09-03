@@ -16,6 +16,7 @@ let confettiCleanupTimer = null;
 let confettiFired = false;
 let audioPlayed = false;
 let yayButtonBound = false;
+let giftFooterBound = false;
 
 function readCodeParam() {
   const params = new URLSearchParams(window.location.search);
@@ -207,6 +208,39 @@ function bindYayButton() {
   button.addEventListener("click", onYayUnlock);
 }
 
+/** Plan B: tapping the footer always bursts confetti (even if audio never played). */
+function onGiftFooterActivate(event) {
+  if (event && event.type === "keydown" && event.key !== "Enter" && event.key !== " ") {
+    return;
+  }
+  if (event && event.type === "keydown" && event.key === " ") {
+    event.preventDefault();
+  }
+  burstConfettiOnce({ force: true });
+  confettiFired = true;
+
+  // Best-effort audio if it never played.
+  const audio = document.getElementById("yay-audio");
+  if (audio && !audioPlayed) {
+    audioPlayed = true;
+    audio.volume = YAY_VOLUME;
+    const attempt = audio.play();
+    if (attempt && typeof attempt.then === "function") {
+      attempt.catch(() => {
+        audioPlayed = false;
+      });
+    }
+  }
+}
+
+function bindGiftFooterConfetti() {
+  const footer = document.getElementById("gift-footer");
+  if (!footer || giftFooterBound) return;
+  giftFooterBound = true;
+  footer.addEventListener("click", onGiftFooterActivate);
+  footer.addEventListener("keydown", onGiftFooterActivate);
+}
+
 function playYayOnce() {
   const audio = document.getElementById("yay-audio");
   const button = document.getElementById("yay-button");
@@ -216,6 +250,7 @@ function playYayOnce() {
   audioPlayed = false;
   clearYayUnlock();
   bindYayButton();
+  bindGiftFooterConfetti();
   setHidden(button, true);
 
   if (!audio) {
